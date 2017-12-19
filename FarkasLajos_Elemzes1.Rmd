@@ -7,10 +7,6 @@ output:
   word_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 # Hipotézisek
 
 \begin{enumerate}
@@ -26,14 +22,8 @@ knitr::opts_chunk$set(echo = TRUE)
 \item Szülés módja alapján a dL\_9-dL\_8 értékek nõnek hüvelyi szülés esetén
 \end{enumerate}
 
-,,Megnyúlnak'' = delták. Abszolút érték számít.
+,,Megnyúlnak'' = delták. Abszolút érték számít. TODO
 
-
-```{r}
-d = read.csv("~/Work/Education/Statisztikai_elemzesek/FarkasLajos_noi_klinika/STAT_DB.csv")
-attach(d)
-summary(d)
-```
 
 ## Magyarázat
 
@@ -55,60 +45,101 @@ dL\_\*; dH\_* &	L1\_\* - L2\_\*; H1\_\* - H2\_\*\dots\\
 Suly\_\*&	Magzat becsült tömege *-dik megjelenéskor\\
 \end{tabular}
 
+```{r}
+d = read.csv("~/Work/Education/Statisztikai_elemzesek/FarkasLajos_noi_klinika/STAT_DB.csv")
+attach(d)
+summary(d)
+```
 
 \clearpage
 
 # 1. Hüvelyi szülés után a medencefenék izmai megnyúlnak a császármetszéshez képest.
+TODO: abszolút érték vagy sem?
 
 ```{r}
 csoport = Sz_mod
-table(csoport)
-valt = abs(dL_9)
-summary(valt[csoport=="PVN"])
-summary(valt[csoport=="SC"])
-sd(valt,na.rm=TRUE)
-#sd(kulonbseg[csoport=="SC"])
+valt = dL_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC  = valt[csoport=="SC"]
 ```
 
+## Leíró statisztikák
 ```{r}
-hist(valt[csoport=="PVN"])
-boxplot(valt[csoport=="PVN"],horizontal=T)
-hist(valt[csoport=="SC"])
-boxplot(valt[csoport=="SC"],horizontal=T)
+table(csoport)
+summary(valt_PVN)
+summary(valt_SC)
+sd(valt,na.rm=TRUE)
+sd(valt_PVN,na.rm=T)
+sd(valt_SC,na.rm=T)
+```
+
+## Grafikonok
+```{r}
+par(mfrow=c(2,2))
+lim=c(min(min(valt_PVN,na.rm=T),min(valt_SC,na.rm=T)),max(max(valt_PVN,na.rm=T),max(valt_SC,na.rm=T)))
+hist(valt_PVN,xlab="",ylab="",main="PVN",xlim=lim);hist(valt_SC,xlab="",ylab="",main="SC",xlim=lim)
+boxplot(valt_PVN,horizontal=T,xlim=lim); boxplot(valt_SC,horizontal=T,xlim=lim)
+par(mfrow=c(1,1))
+```
+
+## Egyoldalas páros t-próba
+```{r}
 t.test(valt~csoport,alternative = "greater")
 ```
+\clearpage
 
 # 2. Az újszülött súlya szignifikáns összefüggést mutat a medencefenék izmainak megnyúlásával. A nagyobb születési súllyal megnõ a medencefenék izmainak megnyúlása.
 
-```{r}
+TODO túl magas és túl alacsony HC_8 értékek?
+
+```{r, fig.height=4, fig.width=5}
 x = HC_8[HC_8<900 & HC_8>200]
 y = dL_8[HC_8<900 & HC_8>200]
 plot(x,y)
 cor.test(x,y)
 ```
 
+\clearpage
+
 # 3. A szülések számával arányosan nõ a medencefenék izmainak megnyúlása.
 ```{r}
-csoport = Pa + Cae
-table(csoport)
-x = dL_9
-csoport
-boxplot(x~csoport,horizontal=T)
-hist(x[csoport==1],xlim=c(-6,12))
-hist(x[csoport==2],xlim=c(-6,12))
-hist(x[csoport==3],xlim=c(-6,12))
-hist(x[csoport==4],xlim=c(-6,12))
+csoport = Pa + Cae; x = dL_9; table(csoport)
+```
+
+## Ábrák
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+boxplot(x~csoport,horizontal=T,ylab="Szulesek szama",xlab="dL_9")
+```
+
+```{r, echo=FALSE}
+par(mfrow=c(2,2))
+hist(x[csoport==1],xlim=c(-6,12),xlab="1 szules (dL_9)",main="")
+hist(x[csoport==2],xlim=c(-6,12),xlab="2 szules (dL_9)",main="")
+hist(x[csoport==3],xlim=c(-6,12),xlab="3 szules (dL_9)",main="")
+hist(x[csoport==4],xlim=c(-6,12),xlab="4 szules (dL_9)",main="")
+par(mfrow=c(1,1))
+```
+
+## Egyszempontos ANOVA
+```{r}
 fit = aov(x~csoport)
 summary(fit)
 ```
 
+\clearpage
+
 # 4. Az anyai BMI-vel arányosan nõ a medencefenék izmainak megnyúlása.
+TODO adatok tisztítása! (túl magas BMI-k, pontatlan súly miatt)
+
 ```{r}
 x = dL_9[BMI<37]
 y = BMI[BMI<37]
 plot(x,y,xlab="dL_9",ylab="BMI")
 cor.test(x,y)
 ```
+
+\clearpage
+
 
 # 9. Az izommegnyúlás mértéke korrelál a testmagassággal.
 ```{r}
@@ -118,52 +149,83 @@ plot(x,y,xlab="dL_9",ylab="BMI")
 cor.test(x,y)
 ```
 
+\clearpage
+
 # 5. A terhességi korral arányosan növekszig a medencefenék izmainak megnyúlása (mondjuk az elsõ trimeszterbeli értékeket kellene összevetni a szülés elõttivel).
 
 TODO
 
-
+\clearpage
 
 # 6. A szülés elõtti medencefenék (36. hetes UH) megnyúlása nagyobb a szülés utáni 6 hetes kontrollhoz képest.
 ```{r}
 kontroll_6hetes = dL_9
 szules_elott = dL_8
 kul = szules_elott - kontroll_6hetes
-boxplot(kontroll_6hetes,szules_elott,kul,horizontal=TRUE,names=c("dL_9","dL_8","kulonbseg"))
-hist(dL_8)
-hist(dL_9)
-t.test(kontroll_6hetes,szules_elott,alternative="greater",paired=TRUE)
-t.test(kontroll_6hetes,szules_elott,paired=TRUE)
 ```
 
+## Ábrák
+```{r, echo=FALSE}
+par(mfrow=c(1,3))
+hist(dL_8,xlab="dL_8",main="")
+hist(dL_9,xlab="dL_9",main="")
+hist(kul,xlab="dL_9-dL_8",main="")
+par(mfrow=c(1,1))
+boxplot(kontroll_6hetes,szules_elott,kul,horizontal=TRUE,names=c("dL_9","dL_8","kulonbseg"))
+```
 
-# 7-8. Fiatalabb várandósoknál kisebb mértékú az izmok megnyúlása, mint az idõsebbeknél. 	Fiatal várandósoknál nagyobb a szülés elõtt és a szülés után mért izomnyúlás közötti különbség, mint az idõsebb várandósoknál. (jobb a regenerációs hajlam fiatalabb korban)
+## Páros t-próba
+```{r}
+t.test(kontroll_6hetes,szules_elott,alternative="greater",paired=TRUE)
+```
+
+\clearpage
+
+# 7-8. Fiatalabb várandósoknál kisebb mértékû az izmok megnyúlása, mint az idõsebbeknél. 	Fiatal várandósoknál nagyobb a szülés elõtt és a szülés után mért izomnyúlás közötti különbség, mint az idõsebb várandósoknál. (jobb a regenerációs hajlam fiatalabb korban)
 ```{r}
 x = Ek
 y1 = dL_8
 y2 = dL_9
 yd = y2-y1
+```
+
+## Ábrák
+```{r, echo=FALSE}
+par(mfrow=c(1,3))
 plot(x,y1,xlab="életkor",ylab="dL_8")
-cor.test(x,y1)
 plot(x,y2,xlab="életkor",ylab="dL_9")
-cor.test(x,y2)
 plot(x,yd,xlab="életkor",ylab="dL_9-dL_8")
+par(mfrow=c(1,1))
+```
+
+\clearpage
+
+## Korreláció vizsgálatok
+```{r}
+cor.test(x,y1)
+cor.test(x,y2)
 cor.test(x,yd)
 ```
+\clearpage
 
 # 10. Szülés módja alapján a dL\_9-dL\_8 értékek nõnek hüvelyi szülés esetén
 
+## Leíró statisztikák
 ```{r}
 csoport = Sz_mod
 valt = dL_9-dL_8
-boxplot(valt,horizontal=T)
-summary(valt)
-summary(valt[csoport=="PVN"])
-summary(valt[csoport=="SC"])
-sd(valt,na.rm=TRUE)
-huvelyi = valt[csoport=="PVN"]
-csaszar = valt[csoport=="SC"]
-t.test(huvelyi,csaszar,alternative="greater")
-t.test(huvelyi,csaszar)
-boxplot(huvelyi,csaszar,horizontal=T,names=c("huvelyi","csaszar"),xlab="dL9-dL8")
+valt_PVN = valt[csoport=="PVN"]
+valt_SC = valt[csoport=="SC"]
+summary(valt);summary(valt_PVN);summary(valt_SC)
+sd(valt,na.rm=TRUE);sd(valt_PVN,na.rm=TRUE);sd(valt_SC,na.rm=TRUE)
+```
+
+## Ábrák
+```{r echo=FALSE}
+boxplot(valt_PVN,valt_SC,horizontal=T,names=c("PVN","SC"),xlab="dL9-dL8")
+```
+
+## Kétmintás t-próba
+```{r}
+t.test(valt_PVN,valt_SC,alternative="greater")
 ```
