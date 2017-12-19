@@ -1,0 +1,169 @@
+---
+title: "Szakdolgozat - Farkas Lajos"
+author: 'Statisztika: Griechisch Erika'
+date: "December, 2017"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Hipotézisek
+
+\begin{enumerate}
+\item  Hüvelyi szülés után a medencefenék izmai megnyúlnak a császármetszéshez képest.
+\item  Az újszülött súlya szignifikáns összefüggést mutat a medencefenék izmainak megnyúlásával. A nagyobb születési súllyal megnõ a medencefenék izmainak megnyúlása.
+\item  A szülések számával arányosan nõ a medencefenék izmainak megnyúlása.
+\item  Az anyai BMI-vel arányosan nõ a medencefenék izmainak megnyúlása.
+\item  A terhességi korral arányosan növekszig a medencefenék izmainak megnyúlása (mondjuk az elsõ trimeszterbeli értékeket kellene összevetni a szülés elõttivel).
+\item  A szülés elõtti medencefenék (36. hetes UH) megnyúlása nagyobb a szülés utáni 6 hetes kontrollhoz képest.
+\item	Fiatalabb várandósoknál kisebb mértékú az izmok megnyúlása, mint az idõsebbeknél
+\item	Fiatal várandósoknál nagyobb a szülés elõtt és a szülés után mért izomnyúlás közötti különbség, mint az idõsebb várandósoknál. (jobb a regenerációs hajlam fiatalabb korban)
+\item	Az izommegnyúlás mértéke korrelál a testmagassággal.
+\item Szülés módja alapján a dL\_9-dL\_8 értékek nõnek hüvelyi szülés esetén
+\end{enumerate}
+
+,,Megnyúlnak'' = delták. Abszolút érték számít.
+
+
+```{r}
+d = read.csv("~/Work/Education/Statisztikai_elemzesek/FarkasLajos_noi_klinika/STAT_DB.csv")
+attach(d)
+summary(d)
+```
+
+## Magyarázat
+
+\begin{tabular}{ll}
+Mag	& Anyai magasság (cm)\\
+Gr	& Terhességek száma\\
+Pa	& Hüvelyi szülések száma\\
+Cae	& Császármetszések száma\\
+Sz\_mod	& Szülés módja: PVN=hüvelyi, SC=császár\\
+Sz\_het	& Szüléskor betöltött terhességi hetek száma\\
+Sz\_suly	& Újszülött tömege\\
+Tkor\_\*	& Terhességi kor napban kifejezve *-dik méréskor\\
+CRL\_\*	& Ülõméret *-dik méréskor\\
+BPD\_\*	& Biparietalis distance *-dik megjelenéskor\\
+L1\_\*; H1\_\*\dots &	Méretek nyugalomban (mm)\\
+L2\_\*; H2\_\*\dots	&Méretek hasprésre (mm)\\
+Ttkg\_\* & 	Anyai testtömeg \*-dik méréskor (kg)\\
+dL\_\*; dH\_* &	L1\_\* - L2\_\*; H1\_\* - H2\_\*\dots\\
+Suly\_\*&	Magzat becsült tömege *-dik megjelenéskor\\
+\end{tabular}
+
+
+\clearpage
+
+# 1. Hüvelyi szülés után a medencefenék izmai megnyúlnak a császármetszéshez képest.
+
+```{r}
+csoport = Sz_mod
+table(csoport)
+valt = abs(dL_9)
+summary(valt[csoport=="PVN"])
+summary(valt[csoport=="SC"])
+sd(valt,na.rm=TRUE)
+#sd(kulonbseg[csoport=="SC"])
+```
+
+```{r}
+hist(valt[csoport=="PVN"])
+boxplot(valt[csoport=="PVN"],horizontal=T)
+hist(valt[csoport=="SC"])
+boxplot(valt[csoport=="SC"],horizontal=T)
+t.test(valt~csoport,alternative = "greater")
+```
+
+# 2. Az újszülött súlya szignifikáns összefüggést mutat a medencefenék izmainak megnyúlásával. A nagyobb születési súllyal megnõ a medencefenék izmainak megnyúlása.
+
+```{r}
+x = HC_8[HC_8<900 & HC_8>200]
+y = dL_8[HC_8<900 & HC_8>200]
+plot(x,y)
+cor.test(x,y)
+```
+
+# 3. A szülések számával arányosan nõ a medencefenék izmainak megnyúlása.
+```{r}
+csoport = Pa + Cae
+table(csoport)
+x = dL_9
+csoport
+boxplot(x~csoport,horizontal=T)
+hist(x[csoport==1],xlim=c(-6,12))
+hist(x[csoport==2],xlim=c(-6,12))
+hist(x[csoport==3],xlim=c(-6,12))
+hist(x[csoport==4],xlim=c(-6,12))
+fit = aov(x~csoport)
+summary(fit)
+```
+
+# 4. Az anyai BMI-vel arányosan nõ a medencefenék izmainak megnyúlása.
+```{r}
+x = dL_9[BMI<37]
+y = BMI[BMI<37]
+plot(x,y,xlab="dL_9",ylab="BMI")
+cor.test(x,y)
+```
+
+# 9. Az izommegnyúlás mértéke korrelál a testmagassággal.
+```{r}
+x = dL_9
+y = Mag
+plot(x,y,xlab="dL_9",ylab="BMI")
+cor.test(x,y)
+```
+
+# 5. A terhességi korral arányosan növekszig a medencefenék izmainak megnyúlása (mondjuk az elsõ trimeszterbeli értékeket kellene összevetni a szülés elõttivel).
+
+TODO
+
+
+
+# 6. A szülés elõtti medencefenék (36. hetes UH) megnyúlása nagyobb a szülés utáni 6 hetes kontrollhoz képest.
+```{r}
+kontroll_6hetes = dL_9
+szules_elott = dL_8
+kul = szules_elott - kontroll_6hetes
+boxplot(kontroll_6hetes,szules_elott,kul,horizontal=TRUE,names=c("dL_9","dL_8","kulonbseg"))
+hist(dL_8)
+hist(dL_9)
+t.test(kontroll_6hetes,szules_elott,alternative="greater",paired=TRUE)
+t.test(kontroll_6hetes,szules_elott,paired=TRUE)
+```
+
+
+# 7-8. Fiatalabb várandósoknál kisebb mértékú az izmok megnyúlása, mint az idõsebbeknél. 	Fiatal várandósoknál nagyobb a szülés elõtt és a szülés után mért izomnyúlás közötti különbség, mint az idõsebb várandósoknál. (jobb a regenerációs hajlam fiatalabb korban)
+```{r}
+x = Ek
+y1 = dL_8
+y2 = dL_9
+yd = y2-y1
+plot(x,y1,xlab="életkor",ylab="dL_8")
+cor.test(x,y1)
+plot(x,y2,xlab="életkor",ylab="dL_9")
+cor.test(x,y2)
+plot(x,yd,xlab="életkor",ylab="dL_9-dL_8")
+cor.test(x,yd)
+```
+
+# 10. Szülés módja alapján a dL\_9-dL\_8 értékek nõnek hüvelyi szülés esetén
+
+```{r}
+csoport = Sz_mod
+valt = dL_9-dL_8
+boxplot(valt,horizontal=T)
+summary(valt)
+summary(valt[csoport=="PVN"])
+summary(valt[csoport=="SC"])
+sd(valt,na.rm=TRUE)
+huvelyi = valt[csoport=="PVN"]
+csaszar = valt[csoport=="SC"]
+t.test(huvelyi,csaszar,alternative="greater")
+t.test(huvelyi,csaszar)
+boxplot(huvelyi,csaszar,horizontal=T,names=c("huvelyi","csaszar"),xlab="dL9-dL8")
+```
