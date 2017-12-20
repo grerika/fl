@@ -1,6 +1,6 @@
 ---
-title: "Szakdolgozat - Farkas Lajos"
-author: 'Statisztika: Griechisch Erika'
+title: "Szakdolgozat (FL)"
+author: "Statisztika (GE)"
 date: "December, 2017"
 output:
   pdf_document: default
@@ -90,11 +90,11 @@ t.test(valt~csoport,alternative = "greater")
 
 # 2. Az újszülött súlya szignifikáns összefüggést mutat a medencefenék izmainak megnyúlásával. A nagyobb születési súllyal megnõ a medencefenék izmainak megnyúlása.
 
-TODO túl magas és túl alacsony HC_8 értékek?
+TODO túl alacsony HC_8 értékek?
 
 ```{r, fig.height=4, fig.width=5}
-x = HC_8[HC_8<900 & HC_8>200]
-y = dL_8[HC_8<900 & HC_8>200]
+x = HC_8[HC_8>200]
+y = dL_8[HC_8>200]
 plot(x,y)
 cor.test(x,y)
 ```
@@ -129,11 +129,11 @@ summary(fit)
 \clearpage
 
 # 4. Az anyai BMI-vel arányosan nõ a medencefenék izmainak megnyúlása.
-TODO adatok tisztítása! (túl magas BMI-k, pontatlan súly miatt)
+TODO adatok tisztítása! Van egy 44.5-ös BMI, az reális?
 
 ```{r}
-x = dL_9[BMI<37]
-y = BMI[BMI<37]
+x = dL_9
+y = BMI
 plot(x,y,xlab="dL_9",ylab="BMI")
 cor.test(x,y)
 ```
@@ -153,8 +153,31 @@ cor.test(x,y)
 
 # 5. A terhességi korral arányosan növekszig a medencefenék izmainak megnyúlása (mondjuk az elsõ trimeszterbeli értékeket kellene összevetni a szülés elõttivel).
 
-TODO
-
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(dL_1,dL_2,dL_3,dL_4,dL_5,dL_6,dL_7,dL_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+yDL = df$c.dL_1..dL_2..dL_3..dL_4..dL_5..dL_6..dL_7..dL_8.
+summary(yDL)
+time = 1:8
+yATLAG = c(mean(dL_1,na.rm=T),mean(dL_2,na.rm=T),mean(dL_3,na.rm=T),mean(dL_4,na.rm=T),mean(dL_5,na.rm=T),mean(dL_6,na.rm=T),mean(dL_7,na.rm=T),mean(dL_8,na.rm=T))
+dL1 = t.test(dL_1); dL1_conf=c(dL1$conf.int[1],dL1$conf.int[2])
+dL = t.test(dL_2); dL2_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_3); dL3_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_4); dL4_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_5); dL5_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_6); dL6_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_7); dL7_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_8); dL8_conf=c(dL$conf.int[1],dL$conf.int[2])
+yConfLower = c(dL1_conf[1],dL2_conf[1],dL3_conf[1],dL4_conf[1],dL5_conf[1],dL6_conf[1],dL7_conf[1],dL8_conf[1])
+yConfUpper = c(dL1_conf[2],dL2_conf[2],dL3_conf[2],dL4_conf[2],dL5_conf[2],dL6_conf[2],dL7_conf[2],dL8_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,9)
+#plot(time,yATLAG,xlab="kontroll",ylab="Atlagos DL ertek az x. kontrollnal",xlim=xl,ylim=yl)
+plot(c(time,time,time),c(yConfLower,yATLAG,yConfUpper),xlab="kontroll",ylab="Átlagos DL ertek (95% CI) az x. kontrollnal",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="dL")
+#cor.test(x,y)
+```
 \clearpage
 
 # 6. A szülés elõtti medencefenék (36. hetes UH) megnyúlása nagyobb a szülés utáni 6 hetes kontrollhoz képest.
@@ -183,7 +206,7 @@ t.test(kontroll_6hetes,szules_elott,alternative="greater",paired=TRUE)
 
 # 7-8. Fiatalabb várandósoknál kisebb mértékû az izmok megnyúlása, mint az idõsebbeknél. 	Fiatal várandósoknál nagyobb a szülés elõtt és a szülés után mért izomnyúlás közötti különbség, mint az idõsebb várandósoknál. (jobb a regenerációs hajlam fiatalabb korban)
 ```{r}
-x = Ek
+x = Ék
 y1 = dL_8
 y2 = dL_9
 yd = y2-y1
