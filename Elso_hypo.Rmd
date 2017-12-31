@@ -1,0 +1,105 @@
+---
+title: "Elso_hypo"
+output: pdf_document
+---
+```{r}
+d = read.csv2("~/Desktop/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+
+# 1. Hüvelyi szülés után a medencefenék izmai megnyúlnak a császármetszéshez képest.
+(TODO: abszolút érték vagy sem?)
+
+
+```{r}
+csoport = Sz_mod
+valt = dL_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC  = valt[csoport=="SC"]
+```
+## Egyoldalas kétmintás t-próba: dL_9 értékekre nézve
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+```{r}
+csoport = Sz_mod
+valt = dH_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC  = valt[csoport=="SC"]
+```
+
+## Egyoldalas kétmintás t-próba: dH_9 értékekre nézve
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+```{r}
+csoport = Sz_mod
+valt = dB_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC  = valt[csoport=="SC"]
+```
+
+## Egyoldalas kétmintás t-próba: dB_9 értékekre nézve
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+```{r}
+csoport = Sz_mod
+valt = dC_9
+valt_SC = valt[csoport=="SC"]
+valt_PVN  = valt[csoport=="PVN"]
+```
+
+## Egyoldalas kétmintás t-próba: dC_9 értékekre nézve
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+```{r}
+csoport = Sz_mod
+valt = dX_9
+valt_PVN  = valt[csoport=="PVN"]
+valt_SC = valt[csoport=="SC"]
+```
+
+## Egyoldalas kétmintás t-próba: dX_9 értékekre nézve
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+```{r}
+csoport = Sz_mod
+valt = dD_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC  = valt[csoport=="SC"]
+```
+## Egyoldalas kétmintás t-próba: dD_9 értékekre nézve
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+
+## Leíró statisztikák
+```{r}
+table(csoport)
+summary(valt_PVN)
+summary(valt_SC)
+sd(valt,na.rm=TRUE)
+sd(valt_PVN,na.rm=T)
+sd(valt_SC,na.rm=T)
+```
+
+## Grafikonok
+```{r}
+par(mfrow=c(2,2))
+lim=c(min(min(valt_PVN,na.rm=T),min(valt_SC,na.rm=T)),max(max(valt_PVN,na.rm=T),max(valt_SC,na.rm=T)))
+hist(valt_PVN,xlab="",ylab="",main="PVN",xlim=lim);hist(valt_SC,xlab="",ylab="",main="SC",xlim=lim)
+boxplot(valt_PVN,horizontal=T,xlim=lim); boxplot(valt_SC,horizontal=T,xlim=lim)
+par(mfrow=c(1,1))
+```
+
+\clearpage

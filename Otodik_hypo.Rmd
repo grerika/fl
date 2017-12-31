@@ -1,0 +1,179 @@
+---
+title: "Otodik_hypo"
+output: pdf_document
+---
+
+# 5. A terhességi korral arányosan növekszig a medencefenék izmainak megnyúlása.
+
+```{r}
+d = read.csv2("~/Desktop/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(dX_1,dX_2,dX_3,dX_4,dX_5,dX_6,dX_7,dX_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+ydX = df$c.dX_1..dX_2..dX_3..dX_4..dX_5..dX_6..dX_7..dX_8.
+summary(ydX)
+time = 1:8
+yATLAG = c(mean(dX_1,na.rm=T),mean(dX_2,na.rm=T),mean(dX_3,na.rm=T),mean(dX_4,na.rm=T),mean(dX_5,na.rm=T),mean(dX_6,na.rm=T),mean(dX_7,na.rm=T),mean(dX_8,na.rm=T))
+dX = t.test(dX_1); dX1_conf=c(dX$conf.int[1],dX$conf.int[2])
+dX = t.test(dX_2); dX2_conf=c(dX$conf.int[1],dX$conf.int[2])
+dX = t.test(dX_3); dX3_conf=c(dX$conf.int[1],dX$conf.int[2])
+dX = t.test(dX_4); dX4_conf=c(dX$conf.int[1],dX$conf.int[2])
+dX = t.test(dX_5); dX5_conf=c(dX$conf.int[1],dX$conf.int[2])
+dX = t.test(dX_6); dX6_conf=c(dX$conf.int[1],dX$conf.int[2])
+dX = t.test(dX_7); dX7_conf=c(dX$conf.int[1],dX$conf.int[2])
+dX = t.test(dX_8); dX8_conf=c(dX$conf.int[1],dX$conf.int[2])
+yConfLower = c(dX1_conf[1],dX2_conf[1],dX3_conf[1],dX4_conf[1],dX5_conf[1],dX6_conf[1],dX7_conf[1],dX8_conf[1])
+yConfUpper = c(dX1_conf[2],dX2_conf[2],dX3_conf[2],dX4_conf[2],dX5_conf[2],dX6_conf[2],dX7_conf[2],dX8_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,9)
+#plot(xTkor,ydX,xlab="Tkor",ylab="dX")
+co=c("red","red","red","red","red","red","red","red","green","green","green","green","green","green","green","green","blue","blue","blue","blue","blue","blue","blue","blue")
+plot(c(time,time,time),c(yConfLower,yATLAG,yConfUpper),col=co,xlab="kontroll",ylab="Átlagos dX ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="dX")
+#cor.test(x,y)
+```
+
+
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(dD_1,dD_2,dD_3,dD_4,dD_5,dD_6,dD_7,dD_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+ydD = df$c.dD_1..dD_2..dD_3..dD_4..dD_5..dD_6..dD_7..dD_8.
+summary(ydD)
+time = 1:8
+yATLAG = c(mean(dD_1,na.rm=T),mean(dD_2,na.rm=T),mean(dD_3,na.rm=T),mean(dD_4,na.rm=T),mean(dD_5,na.rm=T),mean(dD_6,na.rm=T),mean(dD_7,na.rm=T),mean(dD_8,na.rm=T))
+dD = t.test(dD_1); dD1_conf=c(dD$conf.int[1],dD$conf.int[2])
+dD = t.test(dD_2); dD2_conf=c(dD$conf.int[1],dD$conf.int[2])
+dD = t.test(dD_3); dD3_conf=c(dD$conf.int[1],dD$conf.int[2])
+dD = t.test(dD_4); dD4_conf=c(dD$conf.int[1],dD$conf.int[2])
+dD = t.test(dD_5); dD5_conf=c(dD$conf.int[1],dD$conf.int[2])
+dD = t.test(dD_6); dD6_conf=c(dD$conf.int[1],dD$conf.int[2])
+dD = t.test(dD_7); dD7_conf=c(dD$conf.int[1],dD$conf.int[2])
+dD = t.test(dD_8); dD8_conf=c(dD$conf.int[1],dD$conf.int[2])
+yConfLower = c(dD1_conf[1],dD2_conf[1],dD3_conf[1],dD4_conf[1],dD5_conf[1],dD6_conf[1],dD7_conf[1],dD8_conf[1])
+yConfUpper = c(dD1_conf[2],dD2_conf[2],dD3_conf[2],dD4_conf[2],dD5_conf[2],dD6_conf[2],dD7_conf[2],dD8_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,9)
+#plot(xTkor,ydD,xlab="Tkor",ylab="dD")
+co=c("red","red","red","red","red","red","red","red","green","green","green","green","green","green","green","green","blue","blue","blue","blue","blue","blue","blue","blue")
+plot(c(time,time,time),c(yConfLower,yATLAG,yConfUpper),col=co,xlab="kontroll",ylab="Átlagos dD ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="dD")
+#cor.test(x,y)
+```
+
+
+
+
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(dL_1,dL_2,dL_3,dL_4,dL_5,dL_6,dL_7,dL_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+ydL = df$c.dL_1..dL_2..dL_3..dL_4..dL_5..dL_6..dL_7..dL_8.
+summary(ydL)
+time = 1:8
+yATLAG = c(mean(dL_1,na.rm=T),mean(dL_2,na.rm=T),mean(dL_3,na.rm=T),mean(dL_4,na.rm=T),mean(dL_5,na.rm=T),mean(dL_6,na.rm=T),mean(dL_7,na.rm=T),mean(dL_8,na.rm=T))
+dL = t.test(dL_1); dL1_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_2); dL2_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_3); dL3_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_4); dL4_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_5); dL5_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_6); dL6_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_7); dL7_conf=c(dL$conf.int[1],dL$conf.int[2])
+dL = t.test(dL_8); dL8_conf=c(dL$conf.int[1],dL$conf.int[2])
+yConfLower = c(dL1_conf[1],dL2_conf[1],dL3_conf[1],dL4_conf[1],dL5_conf[1],dL6_conf[1],dL7_conf[1],dL8_conf[1])
+yConfUpper = c(dL1_conf[2],dL2_conf[2],dL3_conf[2],dL4_conf[2],dL5_conf[2],dL6_conf[2],dL7_conf[2],dL8_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,9)
+#plot(xTkor,ydL,xlab="Tkor",ylab="dL")
+co=c("red","red","red","red","red","red","red","red","green","green","green","green","green","green","green","green","blue","blue","blue","blue","blue","blue","blue","blue")
+plot(c(time,time,time),c(yConfLower,yATLAG,yConfUpper),col=co,xlab="kontroll",ylab="Átlagos dL ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="dL")
+#cor.test(x,y)
+```
+
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(dH_1,dH_2,dH_3,dH_4,dH_5,dH_6,dH_7,dH_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+ydH = df$c.dH_1..dH_2..dH_3..dH_4..dH_5..dH_6..dH_7..dH_8.
+summary(ydH)
+time = 1:8
+yATLAG = c(mean(dH_1,na.rm=T),mean(dH_2,na.rm=T),mean(dH_3,na.rm=T),mean(dH_4,na.rm=T),mean(dH_5,na.rm=T),mean(dH_6,na.rm=T),mean(dH_7,na.rm=T),mean(dH_8,na.rm=T))
+dH = t.test(dH_1); dH1_conf=c(dH$conf.int[1],dH$conf.int[2])
+dH = t.test(dH_2); dH2_conf=c(dH$conf.int[1],dH$conf.int[2])
+dH = t.test(dH_3); dH3_conf=c(dH$conf.int[1],dH$conf.int[2])
+dH = t.test(dH_4); dH4_conf=c(dH$conf.int[1],dH$conf.int[2])
+dH = t.test(dH_5); dH5_conf=c(dH$conf.int[1],dH$conf.int[2])
+dH = t.test(dH_6); dH6_conf=c(dH$conf.int[1],dH$conf.int[2])
+dH = t.test(dH_7); dH7_conf=c(dH$conf.int[1],dH$conf.int[2])
+dH = t.test(dH_8); dH8_conf=c(dH$conf.int[1],dH$conf.int[2])
+yConfLower = c(dH1_conf[1],dH2_conf[1],dH3_conf[1],dH4_conf[1],dH5_conf[1],dH6_conf[1],dH7_conf[1],dH8_conf[1])
+yConfUpper = c(dH1_conf[2],dH2_conf[2],dH3_conf[2],dH4_conf[2],dH5_conf[2],dH6_conf[2],dH7_conf[2],dH8_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,9)
+#plot(xTkor,ydH,xlab="Tkor",ylab="dH")
+co=c("red","red","red","red","red","red","red","red","green","green","green","green","green","green","green","green","blue","blue","blue","blue","blue","blue","blue","blue")
+plot(c(time,time,time),c(yConfLower,yATLAG,yConfUpper),col=co,xlab="kontroll",ylab="Átlagos dH ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="dH")
+#cor.test(x,y)
+```
+
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(dB_1,dB_2,dB_3,dB_4,dB_5,dB_6,dB_7,dB_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+ydB = df$c.dB_1..dB_2..dB_3..dB_4..dB_5..dB_6..dB_7..dB_8.
+summary(ydB)
+time = 1:8
+yATLAG = c(mean(dB_1,na.rm=T),mean(dB_2,na.rm=T),mean(dB_3,na.rm=T),mean(dB_4,na.rm=T),mean(dB_5,na.rm=T),mean(dB_6,na.rm=T),mean(dB_7,na.rm=T),mean(dB_8,na.rm=T))
+dB = t.test(dB_1); dB1_conf=c(dB$conf.int[1],dB$conf.int[2])
+dB = t.test(dB_2); dB2_conf=c(dB$conf.int[1],dB$conf.int[2])
+dB = t.test(dB_3); dB3_conf=c(dB$conf.int[1],dB$conf.int[2])
+dB = t.test(dB_4); dB4_conf=c(dB$conf.int[1],dB$conf.int[2])
+dB = t.test(dB_5); dB5_conf=c(dB$conf.int[1],dB$conf.int[2])
+dB = t.test(dB_6); dB6_conf=c(dB$conf.int[1],dB$conf.int[2])
+dB = t.test(dB_7); dB7_conf=c(dB$conf.int[1],dB$conf.int[2])
+dB = t.test(dB_8); dB8_conf=c(dB$conf.int[1],dB$conf.int[2])
+yConfLower = c(dB1_conf[1],dB2_conf[1],dB3_conf[1],dB4_conf[1],dB5_conf[1],dB6_conf[1],dB7_conf[1],dB8_conf[1])
+yConfUpper = c(dB1_conf[2],dB2_conf[2],dB3_conf[2],dB4_conf[2],dB5_conf[2],dB6_conf[2],dB7_conf[2],dB8_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,9)
+#plot(xTkor,ydB,xlab="Tkor",ylab="dB")
+co=c("red","red","red","red","red","red","red","red","green","green","green","green","green","green","green","green","blue","blue","blue","blue","blue","blue","blue","blue")
+plot(c(time,time,time),c(yConfLower,yATLAG,yConfUpper),col=co,xlab="kontroll",ylab="Átlagos dB ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="dB")
+#cor.test(x,y)
+```
+
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(dC_1,dC_2,dC_3,dC_4,dC_5,dC_6,dC_7,dC_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+ydC = df$c.dC_1..dC_2..dC_3..dC_4..dC_5..dC_6..dC_7..dC_8.
+summary(ydC)
+time = 1:8
+yATLAG = c(mean(dC_1,na.rm=T),mean(dC_2,na.rm=T),mean(dC_3,na.rm=T),mean(dC_4,na.rm=T),mean(dC_5,na.rm=T),mean(dC_6,na.rm=T),mean(dC_7,na.rm=T),mean(dC_8,na.rm=T))
+dC = t.test(dC_1); dC1_conf=c(dC$conf.int[1],dC$conf.int[2])
+dC = t.test(dC_2); dC2_conf=c(dC$conf.int[1],dC$conf.int[2])
+dC = t.test(dC_3); dC3_conf=c(dC$conf.int[1],dC$conf.int[2])
+dC = t.test(dC_4); dC4_conf=c(dC$conf.int[1],dC$conf.int[2])
+dC = t.test(dC_5); dC5_conf=c(dC$conf.int[1],dC$conf.int[2])
+dC = t.test(dC_6); dC6_conf=c(dC$conf.int[1],dC$conf.int[2])
+dC = t.test(dC_7); dC7_conf=c(dC$conf.int[1],dC$conf.int[2])
+dC = t.test(dC_8); dC8_conf=c(dC$conf.int[1],dC$conf.int[2])
+yConfLower = c(dC1_conf[1],dC2_conf[1],dC3_conf[1],dC4_conf[1],dC5_conf[1],dC6_conf[1],dC7_conf[1],dC8_conf[1])
+yConfUpper = c(dC1_conf[2],dC2_conf[2],dC3_conf[2],dC4_conf[2],dC5_conf[2],dC6_conf[2],dC7_conf[2],dC8_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,9)
+#plot(xTkor,ydC,xlab="Tkor",ylab="dC")
+co=c("red","red","red","red","red","red","red","red","green","green","green","green","green","green","green","green","blue","blue","blue","blue","blue","blue","blue","blue")
+plot(c(time,time,time),c(yConfLower,yATLAG,yConfUpper),col=co,xlab="kontroll",ylab="Átlagos dC ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="dC")
+#cor.test(x,y)
+```
+

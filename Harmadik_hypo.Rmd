@@ -1,0 +1,161 @@
+---
+title: "Harmadik_hypo"
+output: pdf_document
+---
+```{r}
+d = read.csv2("~/Desktop/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+# 3. A szülések számával arányosan nő a medencefenék izmainak megnyúlása. (Na itt az a helyzet, hogy a delta X a hüvelyi szülések számával fordítottan arányos, vagyis minél többet szült, annál kisebb a dX szülés előtt. Elgondolkodtató.)
+
+```{r}
+csoport = Cae; x = dD_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dD_8 SC
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+boxplot(x~csoport,horizontal=T,ylab="Szulesek szama",xlab="dD_8")
+```
+
+
+```{r}
+csoport = Pa; x = dD_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dD_8 PVN
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+boxplot(x~csoport,horizontal=T,ylab="Szulesek szama",xlab="dD_8")
+```
+
+
+```{r}
+csoport = Pa; x = dX_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dX_8 PVN
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+boxplot(x~csoport,horizontal=T,ylab="Szulesek szama",xlab="dX_8")
+```
+
+
+
+```{r}
+csoport = Pa; x = dL_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dL_8 PVN
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+```{r}
+csoport = Pa; x = dH_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dH_8 PVN
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+```{r}
+csoport = Pa; x = dB_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dB_8 PVN
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+```{r}
+csoport = Pa; x = dC_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dC_8 PVN
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+
+```{r}
+csoport = Cae; x = dL_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dL_8 SC
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+```{r}
+csoport = Cae; x = dH_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dH_8 SC
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+```{r}
+csoport = Cae; x = dB_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dB_8 SC
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+```{r}
+csoport = Cae; x = dC_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dC_8 SC
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+```{r}
+csoport = Cae; x = dX_8; table(csoport)
+```
+
+## Egyszempontos ANOVA dX_8 SC
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+## Ábrák
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+boxplot(x~csoport,horizontal=T,ylab="Szulesek szama",xlab="dX_8")
+```
+
+```{r, echo=FALSE}
+par(mfrow=c(2,2))
+hist(x[csoport==1],xlim=c(-6,12),xlab="1 szules (dX_8)",main="")
+hist(x[csoport==2],xlim=c(-6,12),xlab="2 szules (dX_8)",main="")
+hist(x[csoport==3],xlim=c(-6,12),xlab="3 szules (dX_8)",main="")
+# hist(x[csoport==4],xlim=c(-6,12),xlab="4 szules (dX_8)",main="")
+par(mfrow=c(1,1))
+```

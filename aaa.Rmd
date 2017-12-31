@@ -1,0 +1,150 @@
+---
+title: "aaa"
+output: pdf_document
+---
+
+```{r}
+d = read.csv2("~/Desktop/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(L1_1,L1_2,L1_3,L1_4,L1_5,L1_6,L1_7,L1_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+yL1 = df$c.L1_1..L1_2..L1_3..L1_4..L1_5..L1_6..L1_7..L1_8.
+#summary(yL1)
+time = 1:9
+yATLAG = c(mean(L1_1,na.rm=T),mean(L1_2,na.rm=T),mean(L1_3,na.rm=T),mean(L1_4,na.rm=T),mean(L1_5,na.rm=T),mean(L1_6,na.rm=T),mean(L1_7,na.rm=T),mean(L1_8,na.rm=T),mean(L1_9,na.rm=T))
+L1 = t.test(L1_1); L11_conf=c(L1$conf.int[1],L1$conf.int[2])
+L1 = t.test(L1_2); L12_conf=c(L1$conf.int[1],L1$conf.int[2])
+L1 = t.test(L1_3); L13_conf=c(L1$conf.int[1],L1$conf.int[2])
+L1 = t.test(L1_4); L14_conf=c(L1$conf.int[1],L1$conf.int[2])
+L1 = t.test(L1_5); L15_conf=c(L1$conf.int[1],L1$conf.int[2])
+L1 = t.test(L1_6); L16_conf=c(L1$conf.int[1],L1$conf.int[2])
+L1 = t.test(L1_7); L17_conf=c(L1$conf.int[1],L1$conf.int[2])
+L1 = t.test(L1_8); L18_conf=c(L1$conf.int[1],L1$conf.int[2])
+L1 = t.test(L1_9); L19_conf=c(L1$conf.int[1],L1$conf.int[2])
+yConfLower = c(L11_conf[1],L12_conf[1],L13_conf[1],L14_conf[1],L15_conf[1],L16_conf[1],L17_conf[1],L18_conf[1],L19_conf[1])
+yConfUpper = c(L11_conf[2],L12_conf[2],L13_conf[2],L14_conf[2],L15_conf[2],L16_conf[2],L17_conf[2],L18_conf[2],L19_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,10)
+#plot(xTkor,yL1,xlab="Tkor",ylab="L1")
+co=c("blue")
+plot(c(time),c(yATLAG),col=co,xlab=" megjelenés",ylab="Átlagos L1 ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="L1")
+#cor.test(x,y)
+```
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(H1_1,H1_2,H1_3,H1_4,H1_5,H1_6,H1_7,H1_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+yH1 = df$c.H1_1..H1_2..H1_3..H1_4..H1_5..H1_6..H1_7..H1_8.
+#summary(yH1)
+time = 1:9
+yATLAG = c(mean(H1_1,na.rm=T),mean(H1_2,na.rm=T),mean(H1_3,na.rm=T),mean(H1_4,na.rm=T),mean(H1_5,na.rm=T),mean(H1_6,na.rm=T),mean(H1_7,na.rm=T),mean(H1_8,na.rm=T),mean(H1_9,na.rm=T))
+H1 = t.test(H1_1); H11_conf=c(H1$conf.int[1],H1$conf.int[2])
+H1 = t.test(H1_2); H12_conf=c(H1$conf.int[1],H1$conf.int[2])
+H1 = t.test(H1_3); H13_conf=c(H1$conf.int[1],H1$conf.int[2])
+H1 = t.test(H1_4); H14_conf=c(H1$conf.int[1],H1$conf.int[2])
+H1 = t.test(H1_5); H15_conf=c(H1$conf.int[1],H1$conf.int[2])
+H1 = t.test(H1_6); H16_conf=c(H1$conf.int[1],H1$conf.int[2])
+H1 = t.test(H1_7); H17_conf=c(H1$conf.int[1],H1$conf.int[2])
+H1 = t.test(H1_8); H18_conf=c(H1$conf.int[1],H1$conf.int[2])
+H1 = t.test(H1_9); H19_conf=c(H1$conf.int[1],H1$conf.int[2])
+yConfLower = c(H11_conf[1],H12_conf[1],H13_conf[1],H14_conf[1],H15_conf[1],H16_conf[1],H17_conf[1],H18_conf[1],H19_conf[1])
+yConfUpper = c(H11_conf[2],H12_conf[2],H13_conf[2],H14_conf[2],H15_conf[2],H16_conf[2],H17_conf[2],H18_conf[2],H19_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,10)
+#plot(xTkor,yH1,xlab="Tkor",ylab="H1")
+co=c("blue")
+plot(c(time),c(yATLAG),col=co,xlab=" megjelenés",ylab="Átlagos H1 ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="H1")
+#cor.test(x,y)
+```
+
+
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(B1_1,B1_2,B1_3,B1_4,B1_5,B1_6,B1_7,B1_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+yB1 = df$c.B1_1..B1_2..B1_3..B1_4..B1_5..B1_6..B1_7..B1_8.
+#summary(yB1)
+time = 1:9
+yATLAG = c(mean(B1_1,na.rm=T),mean(B1_2,na.rm=T),mean(B1_3,na.rm=T),mean(B1_4,na.rm=T),mean(B1_5,na.rm=T),mean(B1_6,na.rm=T),mean(B1_7,na.rm=T),mean(B1_8,na.rm=T),mean(B1_9,na.rm=T))
+B1 = t.test(B1_1); B11_conf=c(B1$conf.int[1],B1$conf.int[2])
+B1 = t.test(B1_2); B12_conf=c(B1$conf.int[1],B1$conf.int[2])
+B1 = t.test(B1_3); B13_conf=c(B1$conf.int[1],B1$conf.int[2])
+B1 = t.test(B1_4); B14_conf=c(B1$conf.int[1],B1$conf.int[2])
+B1 = t.test(B1_5); B15_conf=c(B1$conf.int[1],B1$conf.int[2])
+B1 = t.test(B1_6); B16_conf=c(B1$conf.int[1],B1$conf.int[2])
+B1 = t.test(B1_7); B17_conf=c(B1$conf.int[1],B1$conf.int[2])
+B1 = t.test(B1_8); B18_conf=c(B1$conf.int[1],B1$conf.int[2])
+B1 = t.test(B1_9); B19_conf=c(B1$conf.int[1],B1$conf.int[2])
+yConfLower = c(B11_conf[1],B12_conf[1],B13_conf[1],B14_conf[1],B15_conf[1],B16_conf[1],B17_conf[1],B18_conf[1],B19_conf[1])
+yConfUpper = c(B11_conf[2],B12_conf[2],B13_conf[2],B14_conf[2],B15_conf[2],B16_conf[2],B17_conf[2],B18_conf[2],B19_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,10)
+#plot(xTkor,yB1,xlab="Tkor",ylab="B1")
+co=c("blue")
+plot(c(time),c(yATLAG),col=co,xlab=" megjelenés",ylab="Átlagos B1 ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="B1")
+#cor.test(x,y)
+```
+
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(C1_1,C1_2,C1_3,C1_4,C1_5,C1_6,C1_7,C1_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+yC1 = df$c.C1_1..C1_2..C1_3..C1_4..C1_5..C1_6..C1_7..C1_8.
+#summary(yC1)
+time = 1:9
+yATLAG = c(mean(C1_1,na.rm=T),mean(C1_2,na.rm=T),mean(C1_3,na.rm=T),mean(C1_4,na.rm=T),mean(C1_5,na.rm=T),mean(C1_6,na.rm=T),mean(C1_7,na.rm=T),mean(C1_8,na.rm=T),mean(C1_9,na.rm=T))
+C1 = t.test(C1_1); C11_conf=c(C1$conf.int[1],C1$conf.int[2])
+C1 = t.test(C1_2); C12_conf=c(C1$conf.int[1],C1$conf.int[2])
+C1 = t.test(C1_3); C13_conf=c(C1$conf.int[1],C1$conf.int[2])
+C1 = t.test(C1_4); C14_conf=c(C1$conf.int[1],C1$conf.int[2])
+C1 = t.test(C1_5); C15_conf=c(C1$conf.int[1],C1$conf.int[2])
+C1 = t.test(C1_6); C16_conf=c(C1$conf.int[1],C1$conf.int[2])
+C1 = t.test(C1_7); C17_conf=c(C1$conf.int[1],C1$conf.int[2])
+C1 = t.test(C1_8); C18_conf=c(C1$conf.int[1],C1$conf.int[2])
+C1 = t.test(C1_9); C19_conf=c(C1$conf.int[1],C1$conf.int[2])
+yConfLower = c(C11_conf[1],C12_conf[1],C13_conf[1],C14_conf[1],C15_conf[1],C16_conf[1],C17_conf[1],C18_conf[1],C19_conf[1])
+yConfUpper = c(C11_conf[2],C12_conf[2],C13_conf[2],C14_conf[2],C15_conf[2],C16_conf[2],C17_conf[2],C18_conf[2],C19_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,10)
+#plot(xTkor,yC1,xlab="Tkor",ylab="C1")
+co=c("blue")
+plot(c(time),c(yATLAG),col=co,xlab=" megjelenés",ylab="Átlagos C1 ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="C1")
+#cor.test(x,y)
+```
+
+```{r}
+df = data.frame(c(Tkor_1,Tkor_2,Tkor_3,Tkor_4,Tkor_5,Tkor_6,Tkor_7,Tkor_8),c(X1_1,X1_2,X1_3,X1_4,X1_5,X1_6,X1_7,X1_8))
+xTkor = df$c.Tkor_1..Tkor_2..Tkor_3..Tkor_4..Tkor_5..Tkor_6..Tkor_7..Tkor_8.
+yX1 = df$c.X1_1..X1_2..X1_3..X1_4..X1_5..X1_6..X1_7..X1_8.
+#summary(yX1)
+time = 1:9
+yATLAG = c(mean(X1_1,na.rm=T),mean(X1_2,na.rm=T),mean(X1_3,na.rm=T),mean(X1_4,na.rm=T),mean(X1_5,na.rm=T),mean(X1_6,na.rm=T),mean(X1_7,na.rm=T),mean(X1_8,na.rm=T),mean(X1_9,na.rm=T))
+X1 = t.test(X1_1); X11_conf=c(X1$conf.int[1],X1$conf.int[2])
+X1 = t.test(X1_2); X12_conf=c(X1$conf.int[1],X1$conf.int[2])
+X1 = t.test(X1_3); X13_conf=c(X1$conf.int[1],X1$conf.int[2])
+X1 = t.test(X1_4); X14_conf=c(X1$conf.int[1],X1$conf.int[2])
+X1 = t.test(X1_5); X15_conf=c(X1$conf.int[1],X1$conf.int[2])
+X1 = t.test(X1_6); X16_conf=c(X1$conf.int[1],X1$conf.int[2])
+X1 = t.test(X1_7); X17_conf=c(X1$conf.int[1],X1$conf.int[2])
+X1 = t.test(X1_8); X18_conf=c(X1$conf.int[1],X1$conf.int[2])
+X1 = t.test(X1_9); X19_conf=c(X1$conf.int[1],X1$conf.int[2])
+yConfLower = c(X11_conf[1],X12_conf[1],X13_conf[1],X14_conf[1],X15_conf[1],X16_conf[1],X17_conf[1],X18_conf[1],X19_conf[1])
+yConfUpper = c(X11_conf[2],X12_conf[2],X13_conf[2],X14_conf[2],X15_conf[2],X16_conf[2],X17_conf[2],X18_conf[2],X19_conf[2])
+yl=c(min(yConfLower),max(yConfUpper))
+xl = c(0,10)
+#plot(xTkor,yX1,xlab="Tkor",ylab="X1")
+co=c("blue")
+plot(c(time),c(yATLAG),col=co,xlab=" megjelenés",ylab="Átlagos X1 ertek (95% CI) az x. megjelenéskor",xlim=xl,ylim=yl)
+#par(new = TRUE);plot(time,yConfLower,col="blue",xlim=xl,ylim=yl, xlab='', ylab='', axes=F);par(new = FALSE)
+#plot(x,y,xlab="Tkor",ylab="X1")
+#cor.test(x,y)
+```
+

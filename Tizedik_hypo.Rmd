@@ -1,0 +1,46 @@
+---
+title: "Tizedik_hypo"
+output: pdf_document
+---
+
+```{r}
+d = read.csv2("~/Desktop/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+
+
+# 10. Szülés módja alapján a dX\_8-dX\_9 érték kisebb hüvelyi szülés esetén (szülés után állandósul a megnyúlás)
+
+## Leíró statisztikák
+```{r}
+csoport = Sz_mod
+valt = dX_8-dX_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC = valt[csoport=="SC"]
+summary(valt);summary(valt_PVN);summary(valt_SC)
+sd(valt,na.rm=TRUE);sd(valt_PVN,na.rm=TRUE);sd(valt_SC,na.rm=TRUE)
+var.test(valt_PVN,valt_SC)
+```
+
+\clearpage
+
+```{r}
+csoport = Sz_mod
+valt = dD_8-dD_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC = valt[csoport=="SC"]
+summary(valt);summary(valt_PVN);summary(valt_SC)
+sd(valt,na.rm=TRUE);sd(valt_PVN,na.rm=TRUE);sd(valt_SC,na.rm=TRUE)
+var.test(valt_PVN,valt_SC)
+```
+
+## Ábrák
+```{r echo=FALSE}
+boxplot(valt_PVN,valt_SC,horizontal=T,names=c("PVN","SC"),xlab="dD8-dD9")
+```
+
+## Kétmintás t-próba
+```{r}
+t.test(valt_PVN,valt_SC,alternative="greater")
+```

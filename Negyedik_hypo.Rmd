@@ -1,0 +1,57 @@
+---
+title: "Negyedik_hypo"
+output: pdf_document
+---
+
+```{r}
+d = read.csv2("~/Desktop/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+
+# 4. Az anyai BMI-vel arányosan nő a medencefenék izmainak megnyúlása.
+
+```{r}
+x = dD_9
+y = BMI
+plot(x,y,xlab="dD_9",ylab="BMI")
+cor.test(x,y)
+```
+
+
+```{r}
+x = dX_9
+y = BMI
+plot(x,y,xlab="dX_9",ylab="BMI")
+cor.test(x,y)
+```
+
+
+```{r}
+x = dL_9
+y = BMI
+plot(x,y,xlab="dL_9",ylab="BMI")
+cor.test(x,y)
+```
+
+```{r}
+x = dH_9
+y = BMI
+plot(x,y,xlab="dH_9",ylab="BMI")
+cor.test(x,y)
+```
+
+```{r}
+x = dB_9
+y = BMI
+plot(x,y,xlab="dB_9",ylab="BMI")
+cor.test(x,y)
+```
+
+```{r}
+x = dC_9
+y = BMI
+plot(x,y,xlab="dC_9",ylab="BMI")
+cor.test(x,y)
+```
+
