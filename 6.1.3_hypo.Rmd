@@ -1,0 +1,156 @@
+---
+title: "Harmadik_hypo"
+output: pdf_document
+---
+```{r}
+d = read.csv2("~/Desktop/Szakdoga/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+# 3. A szülések számával arányosan nő a medencefenék izmainak megnyúlása.
+
+## Egyszempontos ANOVA dL_9 Pa
+```{r}
+csoport = Pa; x = dL_9; table(csoport)
+csoport=Pa[Pa<4]
+table(csoport)
+x = dL_9[Pa<4]
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+pairwise.t.test(x,csoport,alternative="greater")
+```
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+jpeg('Hip3_dL9_Pa_boxplot.jpg',width = 1000, height = 400)
+boxplot(x~csoport,horizontal=T,ylab="Paritás",xlab="dL_9")
+```
+dev.off()
+
+## Egyszempontos ANOVA dH_9 Pa
+```{r}
+csoport = Pa; x = dH_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+## Egyszempontos ANOVA dB_9 Pa
+```{r}
+csoport = Pa; x = dB_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+## Egyszempontos ANOVA dC_9 Pa
+```{r}
+csoport = Pa; x = dC_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+## Egyszempontos ANOVA dD_9 Pa
+```{r}
+csoport = Pa; x = dD_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+jpeg('Hip3_dD9_Pa_boxplot.jpg',width = 1000, height = 400)
+boxplot(x~csoport,horizontal=T,ylab="Paritás",xlab="dD_9")
+```
+dev.off()
+
+## Egyszempontos ANOVA dX_9 Pa
+```{r}
+csoport = Pa; x = dX_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+boxplot(x~csoport,horizontal=T,ylab="Paritás",xlab="dX_9")
+```
+
+## Egyszempontos ANOVA dL_9 Cae
+```{r}
+csoport = Cae; x = dL_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+jpeg('Hip3_dL9_Cae_boxplot.jpg',width = 1000, height = 400)
+boxplot(x~csoport,horizontal=T,ylab="Császármetszések száma",xlab="dL_9")
+```
+dev.off()
+
+## Egyszempontos ANOVA dH_9 Cae
+```{r}
+csoport = Cae; x = dH_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+## Egyszempontos ANOVA dB_9 Cae
+```{r}
+csoport = Cae; x = dB_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+## Egyszempontos ANOVA dC_9 Cae
+```{r}
+csoport = Cae; x = dC_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+## Egyszempontos ANOVA dX_9 Cae
+```{r}
+csoport = Cae; x = dX_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+
+## Egyszempontos ANOVA dD_9 Cae
+```{r}
+csoport = Cae; x = dD_9; table(csoport)
+```
+```{r}
+fit = aov(x~csoport)
+summary(fit)
+```
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+boxplot(x~csoport,horizontal=T,ylab="Császáros szülések száma",xlab="dD_9")
+```
+
+## Ábrák
+```{r, echo=FALSE, fig.height=4, fig.width=6}
+boxplot(x~csoport,horizontal=T,ylab="Szülések száma",xlab="dD_9")
+```
+
+```{r, echo=FALSE}
+par(mfrow=c(2,2))
+hist(x[csoport==1],xlim=c(-6,12),xlab="1 szules (dD_9)",main="")
+hist(x[csoport==2],xlim=c(-6,12),xlab="2 szules (dD_9)",main="")
+hist(x[csoport==3],xlim=c(-6,12),xlab="3 szules (dD_9)",main="")
+# hist(x[csoport==4],xlim=c(-6,12),xlab="4 szules (dD_9)",main="")
+par(mfrow=c(1,1))
+```
