@@ -1,0 +1,110 @@
+---
+title: "Hetedik_hypo"
+output: pdf_document
+---
+
+```{r}
+d = read.csv2("~/Desktop/Szakdoga/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+
+
+# 6. Fiatalabb várandósoknál kisebb mértékű az izmok megnyúlása, mint az idősebbeknél. Fiatal várandósoknál nagyobb a szülés előtt illetve a szülés után mért izomnyúlás közötti különbség, mint az idősebb várandósoknál. (jobb a regenerációs hajlam fiatalabb korban)
+
+```{r}
+x = eletkor
+y1 = dD_9
+y2 = dD_8
+yd = y2-y1
+```
+
+## Korreláció vizsgálatok dD-re
+```{r}
+cor.test(x,y1)
+cor.test(x,y2)
+cor.test(x,yd)
+```
+
+
+```{r}
+x = eletkor
+y1 = dX_9
+y2 = dX_8
+yd = y2-y1
+```
+
+## Korreláció vizsgálatok dX-re
+```{r}
+cor.test(x,y1)
+cor.test(x,y2)
+cor.test(x,yd)
+```
+
+```{r}
+x = eletkor
+y1 = dL_9
+y2 = dL_8
+yd = y2-y1
+```
+
+## Korreláció vizsgálatok dL-re
+```{r}
+cor.test(x,y1)
+cor.test(x,y2)
+cor.test(x,yd)
+```
+
+```{r}
+x = eletkor
+y1 = dH_9
+y2 = dH_8
+yd = y2-y1
+```
+
+## Korreláció vizsgálatok dH-ra
+```{r}
+cor.test(x,y1)
+cor.test(x,y2)
+cor.test(x,yd)
+```
+
+```{r}
+x = eletkor
+y1 = dB_9
+y2 = dB_8
+yd = y2-y1
+```
+
+## Korreláció vizsgálatok dB-re
+```{r}
+cor.test(x,y1)
+cor.test(x,y2)
+cor.test(x,yd)
+```
+
+```{r}
+x = eletkor
+y1 = dC_9
+y2 = dC_8
+yd = y2-y1
+```
+
+## Korreláció vizsgálatok dC-re
+```{r}
+cor.test(x,y1)
+cor.test(x,y2)
+cor.test(x,yd)
+```
+
+
+
+## Ábrák
+```{r, echo=FALSE}
+par(mfrow=c(1,3))
+plot(x,y1,xlab="Életkor",ylab="dX_8")
+plot(x,y2,xlab="Életkor",ylab="dX_9")
+plot(x,yd,xlab="Életkor",ylab="dX_8-dX_9")
+par(mfrow=c(1,1))
+```
+

@@ -1,0 +1,135 @@
+---
+title: "Elso_hypo"
+output: pdf_document
+---
+```{r}
+setwd("~/Desktop/Szakdoga/")
+d = read.csv2("~/Desktop/Szakdoga/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+
+# 1. Hüvelyi szülés után a medencefenék izmai megnyúlnak a császármetszéshez képest.
+(TODO: abszolút érték vagy sem?)
+
+
+```{r }
+csoport = Sz_mod
+valt = dL_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC  = valt[csoport=="SC"]
+
+jpeg('Hip1_dL9_boxplot.jpg',width = 1000, height = 400)
+boxplot(valt_PVN,valt_SC,names=c("PVN","SC"),main="dL_9 (mm)",horizontal=TRUE)
+dev.off()
+jpeg('Hip1_dL9_hist.jpg',width = 1000, height = 400)
+hist(valt_PVN,xlab="PVN",ylab="Gyakoriság",main="dL_9 (mm)",xlim=c(-5,15),breaks=-5:1:15)
+dev.off()
+
+jpeg('Hip1_szules_modja_oszlopdiagram.jpg',width = 1000, height = 400)
+barplot(table(csoport),ylab="gyakoriság",main="Szülés módja",col=gray.colors(3))
+pie(table(csoport),col=gray.colors(3),main="Szülés módja")
+dev.off()
+```
+## Egyoldalas kétmintás t-próba: dL_9 értékekre nézve
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+```{r}
+csoport = Sz_mod
+valt = dH_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC  = valt[csoport=="SC"]
+```
+jpeg('Hip1_dH9_boxplot.jpg',width = 1000, height = 400)
+boxplot(valt_PVN,valt_SC,names=c("PVN","SC"),main="dH_9 (mm)",horizontal=TRUE)
+dev.off()
+
+## Egyoldalas kétmintás t-próba: dH_9 értékekre nézve
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+```{r}
+csoport = Sz_mod
+valt = dB_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC  = valt[csoport=="SC"]
+jpeg('Hip1_dB9_boxplot.jpg',width = 1000, height = 400)
+boxplot(valt_PVN,valt_SC,names=c("PVN","SC"),main="dB_9 (mm)",horizontal=TRUE)
+dev.off()
+```
+
+## Egyoldalas kétmintás t-próba: dB_9 értékekre nézve
+
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+```{r}
+csoport = Sz_mod
+valt = dC_9
+valt_SC = valt[csoport=="SC"]
+valt_PVN  = valt[csoport=="PVN"]
+```
+jpeg('Hip1_dC9_boxplot.jpg',width = 1000, height = 400)
+boxplot(valt_PVN,valt_SC,names=c("PVN","SC"),main="dC_9 (mm)",horizontal=TRUE)
+dev.off()
+## Egyoldalas kétmintás t-próba: dC_9 értékekre nézve
+
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+```{r}
+csoport = Sz_mod
+valt = dX_9
+valt_PVN  = valt[csoport=="PVN"]
+valt_SC = valt[csoport=="SC"]
+```
+jpeg('Hip1_dX9_boxplot.jpg',width = 1000, height = 400)
+boxplot(valt_PVN,valt_SC,names=c("PVN","SC"),main="dX_9 (mm)",horizontal=TRUE)
+dev.off()
+## Egyoldalas kétmintás t-próba: dX_9 értékekre nézve
+
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+```{r}
+csoport = Sz_mod
+valt = dD_9
+valt_PVN = valt[csoport=="PVN"]
+valt_SC  = valt[csoport=="SC"]
+```
+jpeg('Hip1_dD9_boxplot.jpg',width = 1000, height = 400)
+boxplot(valt_PVN,valt_SC,names=c("PVN","SC"),main="dD_9 (mm)",horizontal=TRUE)
+dev.off()
+## Egyoldalas kétmintás t-próba: dD_9 értékekre nézve
+
+```{r}
+t.test(valt~csoport,alternative = "greater")
+```
+
+
+## Leíró statisztikák
+```{r}
+table(csoport)
+summary(valt_PVN)
+summary(valt_SC)
+sd(valt,na.rm=TRUE)
+sd(valt_PVN,na.rm=T)
+sd(valt_SC,na.rm=T)
+```
+
+## Grafikonok
+```{r}
+par(mfrow=c(2,2))
+lim=c(min(min(valt_PVN,na.rm=T),min(valt_SC,na.rm=T)),max(max(valt_PVN,na.rm=T),max(valt_SC,na.rm=T)))
+hist(valt_PVN,xlab="",ylab="",main="PVN",xlim=lim);hist(valt_SC,xlab="",ylab="",main="SC",xlim=lim)
+boxplot(valt_PVN,horizontal=T,xlim=lim); boxplot(valt_SC,horizontal=T,xlim=lim)
+par(mfrow=c(1,1))
+```
+
+\clearpage

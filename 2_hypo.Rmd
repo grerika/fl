@@ -1,0 +1,61 @@
+---
+title: "Masodik_hypo"
+output: pdf_document
+---
+```{r}
+setwd("~/Desktop/Szakdoga/")
+d = read.csv2("~/Desktop/Szakdoga/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+# 2. Az újszülött súlya szignifikáns összefüggést mutat a medencefenék izmainak megnyúlásával. A nagyobb születési súllyal megnő a medencefenék izmainak megnyúlása.
+
+```{r, fig.height=4, fig.width=5}
+x = Sz_suly
+y = dL_9
+jpeg('Hip2_dL9_scatterplot.jpg',width = 500, height = 300)
+plot(x, y,xlab="Születési súly",ylab="dL_9")
+abline(lm(y~x),lw=3,col="red")
+dev.off()
+lm(y~x)
+cor.test(x,y)
+```
+
+```{r, fig.height=4, fig.width=5}
+x = Sz_suly
+y = dX_9
+plot(x,y)
+cor.test(x,y)
+```
+
+```{r, fig.height=4, fig.width=5}
+x = Sz_suly
+y = dD_9
+plot(x,y)
+cor.test(x,y)
+```
+
+
+```{r, fig.height=4, fig.width=5}
+x = Sz_suly
+y = dH_9
+plot(x,y)
+cor.test(x,y)
+```
+
+```{r, fig.height=4, fig.width=5}
+x = Sz_suly
+y = dB_9
+plot(x,y)
+cor.test(x,y)
+```
+
+```{r, fig.height=4, fig.width=5}
+x = Sz_suly
+y = dC_9
+plot(x,y)
+cor.test(x,y)
+```
+
+
+

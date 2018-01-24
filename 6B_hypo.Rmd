@@ -1,0 +1,82 @@
+---
+title: "Hatodik_hypo"
+output: pdf_document
+---
+
+```{r}
+d = read.csv2("~/Desktop/Szakdoga/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+
+
+# 6. A szülés előtti medencefenék (36. hetes UH) megnyúlása nagyobb a szülés utáni 6 hetes kontrollhoz képest.
+
+
+## Páros t-próba dD
+```{r}
+kontroll_6hetes = dD_9
+szules_elott = dD_8
+kul = szules_elott - kontroll_6hetes
+t.test(kontroll_6hetes,szules_elott,paired=TRUE)
+```
+
+
+
+## Páros t-próba dX
+```{r}
+kontroll_6hetes = dX_9
+szules_elott = dX_8
+kul = szules_elott - kontroll_6hetes
+t.test(kontroll_6hetes,szules_elott,paired=TRUE)
+```
+
+
+
+## Páros t-próba dL
+```{r}
+kontroll_6hetes = dL_9
+szules_elott = dL_8
+kul = szules_elott - kontroll_6hetes
+t.test(kontroll_6hetes,szules_elott,paired=TRUE)
+```
+
+## Páros t-próba dH
+```{r}
+kontroll_6hetes = dH_9
+szules_elott = dH_8
+kul = szules_elott - kontroll_6hetes
+t.test(kontroll_6hetes,szules_elott,paired=TRUE)
+```
+
+
+## Páros t-próba dB
+```{r}
+kontroll_6hetes = dB_9
+szules_elott = dB_8
+kul = szules_elott - kontroll_6hetes
+t.test(kontroll_6hetes,szules_elott,paired=TRUE)
+```
+
+
+## Páros t-próba dC
+```{r}
+kontroll_6hetes = dC_9
+szules_elott = dC_8
+kul = szules_elott - kontroll_6hetes
+t.test(kontroll_6hetes,szules_elott,paired=TRUE)
+```
+
+
+
+
+## Ábrák
+```{r, echo=FALSE}
+par(mfrow=c(1,3))
+hist(dX_8,xlab="dX_8",main="")
+hist(dX_9,xlab="dX_9",main="")
+hist(kul,xlab="dX_8-dX_9",main="")
+par(mfrow=c(1,1))
+boxplot(kontroll_6hetes,szules_elott,kul,horizontal=TRUE,names=c("dX_8","dX_9","kulonbseg"))
+```
+

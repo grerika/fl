@@ -1,0 +1,56 @@
+---
+title: "Kilencedik_hypo"
+output: pdf_document
+---
+
+# 7. Az anyai testmagassággal arányosan nő a medencefenék izmainak megnyúlása.
+
+```{r}
+d = read.csv2("~/Desktop/Szakdoga/STAT_DB2.csv")
+attach(d)
+# summary(d)
+```
+
+```{r}
+x = dD_8
+y = Mag
+plot(x,y,xlab="dD_8",ylab="Magasság")
+cor.test(x,y)
+```
+
+```{r}
+x = dX_8
+y = Mag
+plot(x,y,xlab="dX_8",ylab="Magasság")
+cor.test(x,y)
+```
+
+
+```{r}
+x = dL_8
+y = Mag
+plot(x,y,xlab="dL_8",ylab="Magasság")
+cor.test(x,y)
+```
+
+```{r}
+x = dH_8
+y = Mag
+plot(x,y,xlab="dH_8",ylab="Magasság")
+cor.test(x,y)
+```
+
+```{r}
+x = dB_8
+y = Mag
+plot(x,y,xlab="dB_8",ylab="Magasság")
+cor.test(x,y)
+```
+
+```{r}
+x = dC_8
+y = Mag
+plot(x,y,xlab="dC_8",ylab="Magasság")
+cor.test(x,y)
+```
+
